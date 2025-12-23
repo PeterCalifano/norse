@@ -42,6 +42,8 @@ import torch.jit
 
 from typing import NamedTuple, Tuple
 
+from norse.torch.functional.parameter import default_bio_parameters
+
 
 class LIState(NamedTuple):
     """State of a leaky-integrator
@@ -67,6 +69,10 @@ class LIParameters(NamedTuple):
     tau_syn_inv: torch.Tensor = torch.as_tensor(1.0 / 5e-3)
     tau_mem_inv: torch.Tensor = torch.as_tensor(1.0 / 1e-2)
     v_leak: torch.Tensor = torch.as_tensor(0.0)
+
+    @staticmethod
+    def bio_default():
+        return LIParameters(**default_bio_parameters("li"))
 
 
 def li_step(

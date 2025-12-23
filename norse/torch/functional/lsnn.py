@@ -31,6 +31,7 @@ from typing import NamedTuple, Tuple
 
 import torch
 
+from norse.torch.functional.parameter import default_bio_parameters
 from norse.torch.functional.threshold import threshold
 
 
@@ -58,6 +59,10 @@ class LSNNParameters(NamedTuple):
     beta: torch.Tensor = torch.as_tensor(1.8)
     method: str = "super"
     alpha: float = 100.0
+
+    @staticmethod
+    def bio_default():
+        return LSNNParameters(**default_bio_parameters("lsnn"))
 
 
 class LSNNState(NamedTuple):
